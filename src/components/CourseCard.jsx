@@ -1,6 +1,12 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const CourseCard = ({ course }) => {
+  const navigate = useNavigate()
+
+  const handleNavigate=()=>{
+    navigate(`/course/${course.id}`)
+  }
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -17,7 +23,7 @@ const CourseCard = ({ course }) => {
 
         <div className="flex justify-between items-center mt-4">
           <span className="font-bold text-blue-600 text-lg">${course.price}</span>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+          <button onClick={handleNavigate} className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
             Enroll Now
           </button>
         </div>

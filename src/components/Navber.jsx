@@ -1,102 +1,92 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import "../index.css"; // make sure your CSS variables are loaded
+import "../index.css";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
+  // Function to return active class styles
+  const getNavLinkClass = ({ isActive }) =>
+    isActive
+      ? "px-2 py-1 rounded text-secondary font-semibold"
+      : "px-2 py-1 rounded text-midText";
+
   return (
     <>
-      <nav className="w-full" style={{ backgroundColor: "var(--color-background)" }}>
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-
-          {/* Logo */}
-          <Link to="/" className="text-2xl font-bold" style={{ color: "var(--color-primary)" }}>
-            CourseMaster
-          </Link>
-
-          {/* Desktop Menu */}
-          <ul className="hidden md:flex space-x-8 font-medium">
-            <li>
-              <Link
-                to="/"
-                className="px-2 py-1 rounded"
-                style={{ color: "var(--color-midText)" }}
-                onMouseOver={e => e.currentTarget.style.color = "var(--color-secondary)"}
-                onMouseOut={e => e.currentTarget.style.color = "var(--color-midText)"}
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/courses"
-                className="px-2 py-1 rounded"
-                style={{ color: "var(--color-midText)" }}
-                onMouseOver={e => e.currentTarget.style.color = "var(--color-secondary)"}
-                onMouseOut={e => e.currentTarget.style.color = "var(--color-midText)"}
-              >
-                Courses
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/dashboard"
-                className="px-2 py-1 rounded"
-                style={{ color: "var(--color-midText)" }}
-                onMouseOver={e => e.currentTarget.style.color = "var(--color-secondary)"}
-                onMouseOut={e => e.currentTarget.style.color = "var(--color-midText)"}
-              >
-                Dashboard
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/about"
-                className="px-2 py-1 rounded"
-                style={{ color: "var(--color-midText)" }}
-                onMouseOver={e => e.currentTarget.style.color = "var(--color-secondary)"}
-                onMouseOut={e => e.currentTarget.style.color = "var(--color-midText)"}
-              >
-                About
-              </Link>
-            </li>
-          </ul>
-
-          {/* Desktop Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
-            <Link
-              to="/login"
-              className="px-4 py-2 rounded border"
-              style={{
-                color: "var(--color-primary)",
-                borderColor: "var(--color-primary)"
-              }}
+      <nav
+        className="w-full"
+        style={{ backgroundColor: "var(--color-background)" }}
+      >
+        <div className=" fixed z-50 py-4 w-full bg-slate-100">
+          <div className="container mx-auto px-4 flex items-center justify-between">
+            {/* Logo */}
+            <NavLink
+              to="/"
+              className="text-2xl font-bold"
+              style={{ color: "var(--color-primary)" }}
             >
-              Login
-            </Link>
+              CourseMaster
+            </NavLink>
 
-            <Link
-              to="/register"
-              className="px-4 py-2 rounded"
-              style={{
-                color: "var(--color-background)",
-                backgroundColor: "var(--color-primary)"
-              }}
-            >
-              Register
-            </Link>
-          </div>
+            {/* Desktop Menu */}
+            <ul className="hidden md:flex space-x-8 font-medium">
+              <li>
+                <NavLink to="/" className={getNavLinkClass}>
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/courses" className={getNavLinkClass}>
+                  Courses
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard" className={getNavLinkClass}>
+                  Dashboard
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/about" className={getNavLinkClass}>
+                  About
+                </NavLink>
+              </li>
+            </ul>
 
-          {/* Mobile Button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setOpen(true)}
-              className="text-midText text-3xl"
-              style={{ color: "var(--color-midText)" }}
-            >
-              ☰
-            </button>
+            {/* Desktop Buttons */}
+            <div className="hidden md:flex items-center space-x-3">
+              <NavLink
+                to="/login"
+                className="px-4 py-2 rounded border"
+                style={{
+                  color: "var(--color-primary)",
+                  borderColor: "var(--color-primary)",
+                }}
+              >
+                Login
+              </NavLink>
+
+              <NavLink
+                to="/register"
+                className="px-4 py-2 rounded"
+                style={{
+                  color: "var(--color-background)",
+                  backgroundColor: "var(--color-primary)",
+                }}
+              >
+                Register
+              </NavLink>
+            </div>
+
+            {/* Mobile Button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setOpen(true)}
+                className="text-midText text-3xl"
+                style={{ color: "var(--color-midText)" }}
+              >
+                ☰
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -125,76 +115,68 @@ const Navbar = () => {
             {/* Menu Items */}
             <ul className="flex flex-col space-y-4 text-lg font-medium">
               <li>
-                <Link
+                <NavLink
                   to="/"
                   onClick={() => setOpen(false)}
-                  style={{ color: "var(--color-midText)" }}
-                  onMouseOver={e => e.currentTarget.style.color = "var(--color-secondary)"}
-                  onMouseOut={e => e.currentTarget.style.color = "var(--color-midText)"}
+                  className={getNavLinkClass}
                 >
                   Home
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
                   to="/courses"
                   onClick={() => setOpen(false)}
-                  style={{ color: "var(--color-midText)" }}
-                  onMouseOver={e => e.currentTarget.style.color = "var(--color-secondary)"}
-                  onMouseOut={e => e.currentTarget.style.color = "var(--color-midText)"}
+                  className={getNavLinkClass}
                 >
                   Courses
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
                   to="/dashboard"
                   onClick={() => setOpen(false)}
-                  style={{ color: "var(--color-midText)" }}
-                  onMouseOver={e => e.currentTarget.style.color = "var(--color-secondary)"}
-                  onMouseOut={e => e.currentTarget.style.color = "var(--color-midText)"}
+                  className={getNavLinkClass}
                 >
                   Dashboard
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
                   to="/about"
                   onClick={() => setOpen(false)}
-                  style={{ color: "var(--color-midText)" }}
-                  onMouseOver={e => e.currentTarget.style.color = "var(--color-secondary)"}
-                  onMouseOut={e => e.currentTarget.style.color = "var(--color-midText)"}
+                  className={getNavLinkClass}
                 >
                   About
-                </Link>
+                </NavLink>
               </li>
             </ul>
 
             {/* Auth Buttons */}
             <div className="mt-8 flex flex-col space-y-3">
-              <Link
+              <NavLink
                 onClick={() => setOpen(false)}
                 to="/login"
                 className="px-4 py-2 rounded border text-center"
                 style={{
                   color: "var(--color-primary)",
-                  borderColor: "var(--color-primary)"
+                  borderColor: "var(--color-primary)",
                 }}
               >
                 Login
-              </Link>
+              </NavLink>
 
-              <Link
+              <NavLink
                 onClick={() => setOpen(false)}
                 to="/register"
                 className="px-4 py-2 rounded text-center"
                 style={{
                   color: "var(--color-background)",
-                  backgroundColor: "var(--color-primary)"
+                  backgroundColor: "var(--color-primary)",
                 }}
               >
                 Register
-              </Link>
+              </NavLink>
             </div>
           </div>
         </>

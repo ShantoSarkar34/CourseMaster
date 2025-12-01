@@ -1,18 +1,72 @@
+import { useParams } from "react-router-dom";
+import { courses } from "../data/fakeCourses";
+
+
 const CourseDetails = () => {
+  const { id } = useParams();
+  const course = courses.find(c => c.id === parseInt(id));
+
+  if (!course) {
+    return <div className="text-center mt-20">Course not found</div>;
+  }
+
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">Course Title</h1>
-      <img className="rounded-xl w-full mb-6"
-        src="https://i.ibb.co/g6ssk0G/react.jpg"
-        alt="Course" />
+    <div className=" py-10 w-full bg-gray-100">
+      <div className=" container mx-auto px-4">
 
-      <p className="text-gray-700 mb-4">
-        Detailed course description will go here...
-      </p>
+      {/* Image */}
+      <img
+        src={course.image}
+        alt={course.title}
+        className="w-full h-64 object-cover rounded-lg mb-6"
+      />
 
-      <button className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-        Enroll Now
-      </button>
+      {/* Title & Price */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+        <h1 className="text-4xl font-bold text-darkText">{course.title}</h1>
+        <span className="text-2xl font-semibold text-primary">${course.price}</span>
+      </div>
+
+      {/* Long Description */}
+      <p className="text-midText mb-6">{course.longDescription}</p>
+
+      {/* Syllabus */}
+      <div className="mb-6">
+        <h2 className="text-2xl font-semibold text-darkText mb-2">Syllabus</h2>
+        <ul className="list-disc list-inside text-midText">
+          {course.syllabus.map((item, idx) => (
+            <li key={idx}>{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Coupon */}
+      {course.coupon && (
+        <div className="mb-6 text-midText">
+          <strong>Coupon Code:</strong> {course.coupon}
+        </div>
+      )}
+
+      {/* Public Comments */}
+      <div>
+        <h2 className="text-2xl font-semibold text-darkText mb-4">Student Reviews</h2>
+        <div className="space-y-4">
+          {course.comments.map(comment => (
+            <div key={comment.id} className="flex items-start space-x-4">
+              <img
+                src={comment.avatar}
+                alt={comment.name}
+                className="w-10 h-10 rounded-full"
+              />
+              <div>
+                <h3 className="font-semibold text-darkText">{comment.name}</h3>
+                <p className="text-midText">{comment.comment}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      </div>
     </div>
   );
 };

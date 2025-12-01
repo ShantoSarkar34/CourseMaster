@@ -13,9 +13,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
    /* CourseMaster Theme Colors */
-  --color-primary: #2563EB;      /* Brand Blue */
-  --color-secondary: #4F46E5;    /* Indigo */
-  --color-accent: #1D4ED8;       /* Darker Blue */
+  --color-primary: #4F46E5;      /* Brand Blue */
+  --color-secondary: #4925ad;    /* Indigo */
+  --color-accent: #4b24db;       /* Darker Blue */
   --color-highlight: #FACC15;    /* Amber Highlight */
   --color-background: #F8FAFC;   /* Page Background */
   --color-darkText: #0F172A;     /* Dark Text */
