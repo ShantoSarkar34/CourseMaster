@@ -4,9 +4,11 @@ import "react-toastify/dist/ReactToastify.css";
 import CryptoJS from "crypto-js";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -22,7 +24,7 @@ const Register = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
@@ -32,7 +34,7 @@ const Register = () => {
     return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -44,28 +46,35 @@ const Register = () => {
       return;
     }
 
-    const dataToSend = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      phone: formData.phone,
-      password: securePassword(formData.password),
-      role: "user",
-      createdAt: new Date().toLocaleDateString(),
-    };
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/register", {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password, // send plain password, backend will hash
+      });
 
-    console.log("User Registration Data:", dataToSend);
-    toast.success("Registration data logged in console!");
+      localStorage.setItem("userInfo", JSON.stringify(res.data));
+      toast.success("Registration successful! Logged in.");
 
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      password: "",
-      confirmPassword: "",
-      agree: false,
-    });
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        password: "",
+        confirmPassword: "",
+        agree: false,
+      });
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Registration failed");
+    }
+  };
+
+  const handleNavigate = () => {
+    navigate("/login");
   };
 
   return (
@@ -137,7 +146,11 @@ const Register = () => {
             className="absolute right-4 top-3 cursor-pointer text-background"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? <FaRegEyeSlash className="text-gray-700"/> : <FaRegEye className="text-gray-700"/>}
+            {showPassword ? (
+              <FaRegEyeSlash className="text-gray-700" />
+            ) : (
+              <FaRegEye className="text-gray-700" />
+            )}
           </span>
         </div>
 
@@ -156,12 +169,16 @@ const Register = () => {
             className="absolute right-4 top-3 cursor-pointer text-background"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
-            {showConfirmPassword ? <FaRegEyeSlash className="text-gray-700"/> : <FaRegEye className="text-gray-700"/>}
+            {showConfirmPassword ? (
+              <FaRegEyeSlash className="text-gray-700" />
+            ) : (
+              <FaRegEye className="text-gray-700" />
+            )}
           </span>
         </div>
 
         {/* Agree Checkbox */}
-        <label className="flex items-center mb-6 cursor-pointer">
+        <label className="flex items-center mb-2 cursor-pointer">
           <input
             type="checkbox"
             name="agree"
@@ -169,10 +186,22 @@ const Register = () => {
             onChange={handleChange}
             className="w-5 h-5 text-accent transition"
           />
-          <span className="ml-3 text-gray-700 font-medium">
+          <span className="ml-3 text-gray-600">
             I agree to the <span className="underline">terms & conditions</span>
           </span>
         </label>
+        <p className="mb-5 text-gray-600">
+          Already have an account?{" "}
+          <span>
+            <button
+              type="button"
+              onClick={handleNavigate}
+              className=" cursor-pointer underline font-semibold text-secondary"
+            >
+              Login
+            </button>
+          </span>
+        </p>
 
         {/* Submit */}
         <button

@@ -1,24 +1,23 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import DashboardLayout from "../layouts/DashboardLayout";
-import MainHome from "../page/MainHome"
-import CourseDetails from "../page/CourseDetails"
-import Login from "../page/Login"
-import Register from "../page/Register"
-import StudentDashboard from "../page/StudentDashboard"
-import EnrolledCourseView from "../page/EnrolledCourseView"
-import AdminDashboard from "../page/AdminDashboard"
+import MainHome from "../page/MainHome";
+import CourseDetails from "../page/CourseDetails";
+import Login from "../page/Login";
+import Register from "../page/Register";
+import StudentDashboard from "../page/StudentDashboard";
+import EnrolledCourseView from "../page/EnrolledCourseView";
+import AdminDashboard from "../page/AdminDashboard";
 import ErrorPage from "../components/ErrorPage";
-
-
+import PrivetRoute from "../authProvider/PrivetRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage />,
     element: <MainLayout />,
     children: [
-      { path: "/", element: <MainHome/> },
+      { path: "/", element: <MainHome /> },
       { path: "/course/:id", element: <CourseDetails /> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
@@ -27,7 +26,11 @@ const router = createBrowserRouter([
 
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivetRoute>
+        <DashboardLayout />
+      </PrivetRoute>
+    ),
     children: [
       { path: "", element: <StudentDashboard /> },
       { path: "view/:courseId", element: <EnrolledCourseView /> },
@@ -37,9 +40,7 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <DashboardLayout />,
-    children: [
-      { path: "", element: <AdminDashboard /> },
-    ],
+    children: [{ path: "", element: <AdminDashboard /> }],
   },
 ]);
 

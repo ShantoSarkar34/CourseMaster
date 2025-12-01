@@ -1,9 +1,18 @@
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import "../index.css";
+import { AuthContext } from "../authProvider/AuthProvider";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+    window.location.reload();
+  };
 
   // Function to return active class styles
   const getNavLinkClass = ({ isActive }) =>
@@ -54,27 +63,44 @@ const Navbar = () => {
 
             {/* Desktop Buttons */}
             <div className="hidden md:flex items-center space-x-3">
-              <NavLink
-                to="/login"
-                className="px-4 py-2 rounded border"
-                style={{
-                  color: "var(--color-primary)",
-                  borderColor: "var(--color-primary)",
-                }}
-              >
-                Login
-              </NavLink>
-
-              <NavLink
-                to="/register"
-                className="px-4 py-2 rounded"
-                style={{
-                  color: "var(--color-background)",
-                  backgroundColor: "var(--color-primary)",
-                }}
-              >
-                Register
-              </NavLink>
+              {user ? (
+                <>
+                  <button
+                    onClick={handleLogout}
+                    className="px-4 py-2 rounded cursor-pointer"
+                    style={{
+                      color: "var(--color-background)",
+                      backgroundColor: "var(--color-primary)",
+                    }}
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <NavLink
+                    to="/login"
+                    className="px-4 py-2 rounded border"
+                    style={{
+                      color: "var(--color-primary)",
+                      borderColor: "var(--color-primary)",
+                    }}
+                  >
+                    Login
+                  </NavLink>
+                  <NavLink
+                    to="/register"
+                    className="px-4 py-2 rounded"
+                    style={{
+                      color: "var(--color-background)",
+                      backgroundColor: "var(--color-primary)",
+                    }}
+                  >
+                    Register
+                  </NavLink>
+                </>
+              )}
             </div>
 
             {/* Mobile Button */}
