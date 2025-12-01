@@ -4,21 +4,21 @@ import { courses } from "../data/fakeCourses";
 
 const CourseDetails = () => {
   const { id } = useParams();
-  const course = courses.find(c => c.id === parseInt(id));
+  const course = courses.find(c => c.id === id);
 
   if (!course) {
     return <div className="text-center mt-20">Course not found</div>;
   }
 
   return (
-    <div className=" py-10 w-full bg-gray-100">
+    <div className=" py-10 w-full bg-gray-100 lg:pt-20">
       <div className=" container mx-auto px-4">
 
       {/* Image */}
       <img
         src={course.image}
         alt={course.title}
-        className="w-full h-64 object-cover rounded-lg mb-6"
+        className="w-full h-160 object-cover rounded-lg mb-6"
       />
 
       {/* Title & Price */}

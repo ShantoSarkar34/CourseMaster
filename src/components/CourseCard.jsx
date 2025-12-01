@@ -8,14 +8,10 @@ const CourseCard = ({ course }) => {
     navigate(`/course/${course.id}`)
   }
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      whileHover={{ scale: 1.04 }}
+    <motion.div 
       className="bg-white shadow-lg rounded-2xl overflow-hidden border hover:shadow-xl transition-all duration-300"
     >
-      <img src={course.thumbnail} alt={course.title} className="w-full h-48 object-cover" />
+      <img src={course.image} alt={course.title} className="w-full h-64 object-cover" />
       
       <div className="p-5 space-y-3">
         <h2 className="text-xl font-semibold">{course.title}</h2>
