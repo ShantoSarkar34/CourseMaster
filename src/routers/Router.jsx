@@ -18,7 +18,14 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { path: "/", element: <MainHome /> },
-      { path: "/course/:id", element: <PrivetRoute><CourseDetails /></PrivetRoute>},
+      {
+        path: "/course/:id",
+        element: (
+          <PrivetRoute>
+            <CourseDetails />
+          </PrivetRoute>
+        ),
+      },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
     ],

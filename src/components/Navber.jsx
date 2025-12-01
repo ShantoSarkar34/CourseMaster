@@ -36,7 +36,9 @@ const Navbar = () => {
               style={{ color: "var(--color-primary)" }}
             >
               <img src={logo} width={34} alt="log" />
-              CourseMaster
+              <p className="text-[#df8c0ff1] ">
+                Courses<span className="text-[#13a149] italic">Master</span>{" "}
+              </p>
             </NavLink>
 
             {/* Desktop Menu */}

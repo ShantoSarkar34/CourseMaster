@@ -12,32 +12,41 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-   /* CourseMaster Theme Colors */
-  --color-primary: #4F46E5;      /* Brand Blue */
-  --color-secondary: #4925ad;    /* Indigo */
-  --color-accent: #4b24db;       /* Darker Blue */
-  --color-highlight: #FACC15;    /* Amber Highlight */
-  --color-background: #F8FAFC;   /* Page Background */
-  --color-darkText: #0F172A;     /* Dark Text */
-  --color-midText: #475569;      /* Medium Text */
+  /* CourseMaster Theme Colors */
+  --color-primary: #df8c0ff1; /* Brand Blue */
+  --color-secondary: #13a149; /* Indigo */
+  --color-accent: #19723b; /* Darker Blue */
+  --color-highlight: #facc15; /* Amber Highlight */
+  --color-background: #f8fafc; /* Page Background */
+  --color-darkText: #0f172a; /* Dark Text */
+  --color-midText: #475569; /* Medium Text */
 }
 
-.bg-primary { background-color: var(--color-primary); }
-.text-primary { color: var(--color-primary); }
+.bg-primary {
+  background-color: var(--color-primary);
+}
+.text-primary {
+  color: var(--color-primary);
+}
 
-.bg-secondary { background-color: var(--color-secondary); }
-.text-secondary { color: var(--color-secondary); }
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+.text-secondary {
+  color: var(--color-secondary);
+}
 
-.bg-accent { background-color: var(--color-accent); }
-.text-accent { color: var(--color-accent); }
+.bg-accent {
+  background-color: var(--color-accent);
+}
+.text-accent {
+  color: var(--color-accent);
+}
 
-
-/* colors: {
-  primary: "#2563EB",
-  secondary: "#4F46E5",
-  accent: "#1D4ED8",
-  highlight: "#FACC15",
-  background: "#F8FAFC",
-  darkText: "#0F172A",
-  midText: "#475569",
-} */
+.hero_bg {
+  background-image: linear-gradient(to bottom, #222430c4, #222430b9),
+    url(../src/assets/bg_2.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
