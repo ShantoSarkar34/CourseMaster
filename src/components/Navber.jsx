@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import "../index.css";
 import { AuthContext } from "../authProvider/AuthProvider";
+import logo from "../assets/fav.png";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -31,9 +32,10 @@ const Navbar = () => {
             {/* Logo */}
             <NavLink
               to="/"
-              className="text-2xl font-bold"
+              className="text-2xl font-bold flex items-center"
               style={{ color: "var(--color-primary)" }}
             >
+              <img src={logo} width={34} alt="log" />
               CourseMaster
             </NavLink>
 

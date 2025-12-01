@@ -47,7 +47,7 @@ const Register = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
@@ -57,6 +57,7 @@ const Register = () => {
 
       localStorage.setItem("userInfo", JSON.stringify(res.data));
       toast.success("Registration successful! Logged in.");
+      navigate("/")
 
       // Reset form
       setFormData({
